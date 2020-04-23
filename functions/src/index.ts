@@ -24,6 +24,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
     .then((result) => res.json(result))
     .catch((err) => {
       console.error(err);
+      console.error(err.originalError.response.data);
       res.status(500).end();
     });
 });
