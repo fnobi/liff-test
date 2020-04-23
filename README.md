@@ -23,6 +23,11 @@ $ firebase functions:config:set line.liff_uri=XXXXXXXXXXXXXXX
 $ firebase deploy --only functions
 ```
 
+## 諸注意
+
+* コールバック登録時に、コールバックURLを検証するボタンがあるが、これ基本的にエラーになる。気にしなくていい。
+    * ref) [LINE DevelopesのWebhook URLの接続確認でエラーが出る件について - Qiita](https://qiita.com/q_masa/items/c9db3e8396fb62cc64ed)
+
 ## 参考
 
 * APIを用いて送信できるレスポンスの種類はこのあたりを参照
