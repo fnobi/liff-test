@@ -4,6 +4,7 @@ import * as express from 'express';
 
 // create LINE SDK config from env variables
 const LINE_CONFIG = functions.config().line || {};
+const LIFF_URI = LINE_CONFIG.liff_uri || '';
 const config = {
   channelAccessToken: LINE_CONFIG.channel_access_token || "",
   channelSecret: LINE_CONFIG.channel_secret || "",
@@ -42,10 +43,31 @@ function handleEvent(event: line.WebhookEvent) {
   }
 
   // create a echoing text message
-  const echo: line.TextMessage = { type: 'text', text: event.message.text };
+  const echoMessage: line.TextMessage = { type: 'text', text: event.message.text };
+
+  const buttonTemplate: line.TemplateButtons = {
+    type: 'buttons',
+    text: 'どうする？？',
+    actions: [{
+      type: 'uri',
+      label: 'ゲームをはじめる',
+      uri: LIFF_URI
+    },{
+      type: 'message',
+      label: 'テキストを送る',
+      text: 'hello.'
+    }]
+  };
+  const buttonMessage: line.TemplateMessage = {
+    type: 'template',
+    altText: 'button',
+    template: buttonTemplate
+  };
+
+  const isButton = LIFF_URI && event.message.text === 'button';
 
   // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  return client.replyMessage(event.replyToken, isButton ? buttonMessage : echoMessage);
 }
 
 exports.api = functions.https.onRequest(app);
