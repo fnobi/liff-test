@@ -10,5 +10,8 @@
     "line"
   ],
   "author": "Fujisawa Shin",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "firebase-tools": "^8.1.1"
+  }
 }
